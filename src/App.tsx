@@ -1,5 +1,5 @@
 import React from 'react';
-import StreamlineAISolutions from './frontend.tsx';
+import StreamlineAISolutions from './frontend';
 
 function App() {
   return (
