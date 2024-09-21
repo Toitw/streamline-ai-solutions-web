@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useMemo } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Button } from "./components/ui/button.tsx"
 import { Input } from "./components/ui/input.tsx"
 import { Textarea } from "./components/ui/textarea.tsx"
@@ -52,9 +52,21 @@ const translations = {
     phone: "+1 (555) 123-4567",
     followUs: "Síguenos",
     allRightsReserved: "Todos los derechos reservados.",
-    contactUs: "Contáctenos"
+    contactUs: "Contáctenos",
+    testimonial1: "Streamline AI Solutions transformó nuestros procesos de negocio. Sus soluciones de IA personalizadas nos ayudaron a lograr una eficiencia y crecimiento sin precedentes.",
+    testimonial2: "El equipo de Streamline AI Solutions es excepcional. Su experiencia en IA y compromiso con nuestro éxito marcaron la diferencia.",
+    testimonial3: "La implementación de las soluciones de Streamline AI resultó en un aumento del 40% en nuestra eficiencia operativa. ¡Altamente recomendado!",
+    faqQuestion1: "¿A qué industrias atendemos?",
+    faqAnswer1: "Atendemos a una amplia gama de industrias, incluyendo finanzas, salud, comercio minorista, manufactura y más. Nuestras soluciones de IA son adaptables a diversas necesidades empresariales en diferentes sectores.",
+    faqQuestion2: "¿Cuánto tiempo toma implementar una solución de IA?",
+    faqAnswer2: "El tiempo de implementación varía según la complejidad de la solución y sus necesidades específicas. Típicamente, nuestros proyectos van desde unas pocas semanas para soluciones más simples hasta varios meses para implementaciones más completas.",
+    faqQuestion3: "¿Qué tipo de soporte ofrecen después de la implementación?",
+    faqAnswer3: "Ofrecemos soporte continuo y mantenimiento para todas nuestras soluciones de IA. Esto incluye actualizaciones regulares, monitoreo de rendimiento y soporte técnico para asegurar que sus herramientas de IA continúen aportando valor a lo largo del tiempo.",
+    faqQuestion4: "¿Cómo aseguran la seguridad y privacidad de los datos?",
+    faqAnswer4: "Tomamos muy en serio la seguridad y privacidad de los datos. Implementamos encriptación estándar de la industria, controles de acceso y medidas de cumplimiento para proteger sus datos. También trabajamos estrechamente con nuestros clientes para asegurar que nuestras soluciones cumplan con sus requisitos específicos de seguridad y cumplan con las regulaciones relevantes."
   },
   en: {
+
     services: "Services",
     whyUs: "Why Us",
     testimonials: "Testimonials",
@@ -93,9 +105,20 @@ const translations = {
     phone: "+1 (555) 123-4567",
     followUs: "Follow Us",
     allRightsReserved: "All rights reserved.",
-    contactUs: "Contact Us"
+    contactUs: "Contact Us",
+    testimonial1: "Streamline AI Solutions transformed our business processes. Their tailored AI solutions helped us achieve unprecedented efficiency and growth.",
+    testimonial2: "The team at Streamline AI Solutions is exceptional. Their expertise in AI and commitment to our success made all the difference.",
+    testimonial3: "Implementing Streamline AI's solutions resulted in a 40% increase in our operational efficiency. Highly recommended!",
+    faqQuestion1: "What industries do you serve?",
+    faqAnswer1: "We serve a wide range of industries including finance, healthcare, retail, manufacturing, and more. Our AI solutions are adaptable to various business needs across different sectors.",
+    faqQuestion2: "How long does it take to implement an AI solution?",
+    faqAnswer2: "The implementation time varies depending on the complexity of the solution and your specific needs. Typically, our projects range from a few weeks for simpler solutions to several months for more comprehensive implementations.",
+    faqQuestion3: "What kind of support do you offer after implementation?",
+    faqAnswer3: "We offer ongoing support and maintenance for all our AI solutions. This includes regular updates, performance monitoring, and technical support to ensure your AI tools continue to deliver value over time.",
+    faqQuestion4: "How do you ensure data security and privacy?",
   }
 }
+
 
 export default function StreamlineAISolutions() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -104,6 +127,8 @@ export default function StreamlineAISolutions() {
   const statsRef = useRef<HTMLElement>(null)
   const [statsVisible, setStatsVisible] = useState(false)
   const [language, setLanguage] = useState('es')
+
+  const t = translations[language]
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
@@ -134,18 +159,18 @@ export default function StreamlineAISolutions() {
 
   const testimonials = [
     {
-      text: "Streamline AI Solutions transformed our business processes. Their tailored AI solutions helped us achieve unprecedented efficiency and growth.",
-      author: "John Doe, CEO of TechCorp"
+      text: t.testimonial1,
+      author: t.testimonial1Author
     },
     {
-      text: "The team at Streamline AI Solutions is exceptional. Their expertise in AI and commitment to our success made all the difference.",
-      author: "Jane Smith, CTO of InnovateCo"
+      text: t.testimonial2,
+      author: t.testimonial2Author
     },
     {
-      text: "Implementing Streamline AI's solutions resulted in a 40% increase in our operational efficiency. Highly recommended!",
-      author: "Mike Johnson, COO of FutureTech"
+      text: t.testimonial3,
+      author: t.testimonial3Author
     }
-  ]
+  ];
 
   const AnimatedCounter = ({ end, duration }: { end: number, duration: number }) => {
     const [count, setCount] = useState(0)
@@ -164,12 +189,10 @@ export default function StreamlineAISolutions() {
         }, 16)
         return () => clearInterval(timer)
       }
-    }, [end, duration, statsVisible])
+    }, [end, duration])
     
     return <span>{count}</span>
   }
-
-  const t = translations[language]
 
   const toggleLanguage = () => {
     setLanguage(prevLang => prevLang === 'es' ? 'en' : 'es')
@@ -354,38 +377,32 @@ export default function StreamlineAISolutions() {
         </section>
 
         <section id="faq" className="bg-gray-100 py-20">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold text-center mb-12">{t.faq}</h2>
-            <Accordion type="single" collapsible className="max-w-2xl mx-auto">
-              <AccordionItem value="item-1">
-                <AccordionTrigger>What industries do you serve?</AccordionTrigger>
-                <AccordionContent>
-                  We serve a wide range of industries including finance, healthcare, retail, manufacturing, and more. Our AI solutions are adaptable to various business needs across different sectors.
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-2">
-                <AccordionTrigger>How long does it take to implement an AI solution?</AccordionTrigger>
-                <AccordionContent>
-                  The implementation time varies depending on the complexity of the solution and your specific needs. Typically, our projects range from a few weeks for simpler solutions to several months for more comprehensive implementations.
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-3">
-                <AccordionTrigger>What kind of support do you offer after implementation?</AccordionTrigger>
-                <AccordionContent>
-                  We offer ongoing support and maintenance for all our AI solutions. This includes regular updates, performance monitoring, and technical support to ensure your AI tools continue to deliver value over time.
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-4">
-                <AccordionTrigger>How do you ensure data security and privacy?</AccordionTrigger>
-                <AccordionContent>
-                  We take data security and privacy very seriously. We implement industry-standard encryption, access controls, and compliance measures to protect your data. We also work closely with our clients to ensure our solutions meet their specific security requirements and comply with relevant regulations.
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
+      <div className="container mx-auto px-4">
+        <h2 className="text-3xl font-bold text-center mb-12">{t.faq}</h2>
+        <Accordion type="single" collapsible className="max-w-2xl mx-auto">
+          <AccordionItem value="item-1">
+            <AccordionTrigger>{t.faqQuestion1}</AccordionTrigger>
+            <AccordionContent>{t.faqAnswer1}</AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="item-2">
+            <AccordionTrigger>{t.faqQuestion2}</AccordionTrigger>
+            <AccordionContent>{t.faqAnswer2}</AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="item-3">
+            <AccordionTrigger>{t.faqQuestion3}</AccordionTrigger>
+            <AccordionContent>{t.faqAnswer3}</AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="item-4">
+            <AccordionTrigger>{t.faqQuestion4}</AccordionTrigger>
+            <AccordionContent>{t.faqAnswer4}</AccordionContent>
+          </AccordionItem>
+        </Accordion>
           </div>
         </section>
 
         <section id="contact" className="py-20">
+
+
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold text-center mb-12">{t.contact}</h2>
             <div className="max-w-lg mx-auto">
